@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="72dp" android:background="@color/colorAccent">
+
+    <RelativeLayout
+        android:layout_weight="0.4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/holo_green_dark"
+        >
+
+        <ImageView
+            android:id="@+id/news_thumbnail"
+            android:layout_weight="0.4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/holo_green_dark"/>
+
+        <TextView
+            android:id="@+id/news_time_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:padding="@dimen/news_time_padding"
+            android:background="#80979797"
+            android:text="56 days ago"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_weight="0.6"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_bright"
+        android:padding="@dimen/news_item_padding">
+
+        <TextView
+            android:id="@+id/news_title"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="what I would love you now"
+            android:paddingBottom="12dp"
+            />
+
+        <TextView
+            android:id="@+id/new_desc"
+            android:layout_below="@+id/news_title"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="The Description is here"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>
