@@ -13,7 +13,7 @@
         >
 
         <ImageView
-            android:id="@+id/news_thumbnail"
+            android:id="@+id/article_thumbnail"
             android:layout_weight="0.4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -22,7 +22,7 @@
             android:background="@android:color/holo_green_dark"/>
 
         <TextView
-            android:id="@+id/news_time_label"
+            android:id="@+id/article_time_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:padding="@dimen/news_time_padding"
@@ -42,7 +42,7 @@
         android:padding="@dimen/news_item_padding">
 
         <TextView
-            android:id="@+id/news_title"
+            android:id="@+id/article_title"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="what I would love you now"
@@ -50,8 +50,8 @@
             />
 
         <TextView
-            android:id="@+id/new_desc"
-            android:layout_below="@+id/news_title"
+            android:id="@+id/article_desc"
+            android:layout_below="@+id/article_title"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="The Description is here"
