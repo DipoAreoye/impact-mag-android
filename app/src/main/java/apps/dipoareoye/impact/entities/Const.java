@@ -8,7 +8,9 @@ public final class Const {
     public static final String ARTICLE_TITLE_KEY = "title";
     public static final String ARTICLE_DESC_KEY = "excerpt";
     public static final String ARTICLE_URL_KEY = "link";
+    public static final String ARTICLE_DATE_KEY = "date";
 
+    public static final String ARTICLE_LINKS_KEY = "_links";
     public static final String ROOT_IMG_KEY = "wp:attachment";
     public static final String ARTICLE_IMG_KEY = "vw_one_third_thumbnail";
 

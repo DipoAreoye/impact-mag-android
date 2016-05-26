@@ -1,7 +1,9 @@
 package apps.dipoareoye.impact.presenters;
 
 import android.content.Context;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import apps.dipoareoye.impact.entities.NewsArticle;
@@ -30,18 +32,22 @@ public class NewsListPresenterimpl implements NewsListPresenter {
     @Override
     public void create() {
         if (articleList == null) {
+            articleList = new ArrayList<>();
             model.getNewsList(new ArticlesListener() {
                 @Override
                 public void articlesCallback(List<NewsArticle> articles) {
-
+                    articleList.addAll(articles);
+                    view.setArticles(articleList);
                 }
             });
+        } else {
+            view.setArticles(articleList);
         }
     }
 
     @Override
     public void setView(NewsListView view) {
-
+        this.view = view;
     }
 
 }

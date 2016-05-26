@@ -7,10 +7,10 @@ import org.json.JSONObject;
  */
 public class NewsArticle {
 
-    private final String articleTitle;
-    private final String articleThumbnailUrl;
-    private final  String articleDescription;
-    private final String articleTimeStamp;
+    private String articleTitle;
+    private String articleThumbnailUrl;
+    private String articleDescription;
+    private String articleTimeStamp;
 
     public NewsArticle (String articleTitle, String articleThumbnailUrl,
                             String articleDescription, String articleTimeStamp){
@@ -19,6 +19,29 @@ public class NewsArticle {
         this.articleDescription = articleDescription;
         this.articleTimeStamp = articleTimeStamp;
     }
+
+    public NewsArticle(){}
+
+    public void setArticleTitle(String articleTitle) {
+
+        this.articleTitle = articleTitle;
+    }
+
+    public void setArticleThumbnailUrl(String articleThumbnailUrl) {
+
+        this.articleThumbnailUrl = articleThumbnailUrl;
+    }
+
+    public void setArticleDescription(String articleDescription) {
+
+        this.articleDescription = articleDescription;
+    }
+
+    public void setArticleTimeStamp(String articleTimeStamp) {
+
+        this.articleTimeStamp = articleTimeStamp;
+    }
+
 
     public String getArticleTitle() {
 
