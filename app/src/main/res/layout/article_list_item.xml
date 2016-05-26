@@ -1,62 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="3dp"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="72dp" android:background="@color/colorAccent">
+    android:layout_height="wrap_content" >
 
-    <RelativeLayout
-        android:layout_weight="0.4"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:background="@android:color/holo_green_dark"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardElevation="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardUseCompatPadding="true"
         >
 
-        <ImageView
-            android:id="@+id/article_thumbnail"
-            android:layout_weight="0.4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:background="@android:color/holo_green_dark"/>
-
-        <TextView
-            android:id="@+id/article_time_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:padding="@dimen/news_time_padding"
-            android:background="#80979797"
-            android:text="56 days ago"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_weight="0.6"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/holo_blue_bright"
-        android:padding="@dimen/news_item_padding">
-
-        <TextView
-            android:id="@+id/article_title"
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:text="what I would love you now"
-            android:paddingBottom="12dp"
-            />
-
-        <TextView
-            android:id="@+id/article_desc"
-            android:layout_below="@+id/article_title"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="The Description is here"
-            />
+            >
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.45"
+                >
 
+                <ImageView
+                    android:id="@+id/article_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@color/colorImageView"/>
+
+                <TextView
+                    android:id="@+id/article_time_label"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:padding="@dimen/news_time_padding"
+                    android:background="#80979797"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="sans-serif"
+                    android:text="56 days ago"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="0.55"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorListWhite"
+                android:padding="@dimen/news_item_padding">
+
+                <TextView
+                    android:id="@+id/article_title"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="what I would love you now"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:paddingBottom="12dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    />
+
+                <TextView
+                    android:id="@+id/article_desc"
+                    android:layout_below="@+id/article_title"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="The Description is here nrgwonwognow;ngnwognwognowngwngon2gionwooginwngnwg wg niwng onwg nwg inw"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 </LinearLayout>

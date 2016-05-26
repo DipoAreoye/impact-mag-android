@@ -2,6 +2,7 @@ package apps.dipoareoye.impact.ui.recyclers;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class ArticleRecyclerView extends RecyclerView.Adapter<ArticleRecyclerVie
         holder.time.setText(article.getArticleTimeStamp());
         if (!TextUtils.isEmpty(article.getArticleThumbnailUrl())) {
             holder.media.setVisibility(View.VISIBLE);
+            Log.e(null,article.getArticleThumbnailUrl());
             Picasso.with(holder.media.getContext()).load(article.getArticleThumbnailUrl()).into(holder.media);
         } else {
             holder.media.setVisibility(View.GONE);
