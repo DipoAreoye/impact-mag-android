@@ -6,4 +6,5 @@
     <color name="colorListWhite">#fff</color>
     <color name="colorBackground">#f3f3f3</color>
     <color name="colorImageView">#fbfbfb</color>
+    <color name="drawerBackground">#494949</color>
 </resources>

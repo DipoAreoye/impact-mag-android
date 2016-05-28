@@ -21,7 +21,19 @@
             android:background="?attr/colorPrimaryDark"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"
-            />
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="IMPACT"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center"
+                android:id="@+id/toolbar_title" />
+
+            </android.support.v7.widget.Toolbar>>
 
         <FrameLayout
             android:id="@+id/activity_content"

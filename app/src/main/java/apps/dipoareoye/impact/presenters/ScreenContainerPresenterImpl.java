@@ -27,7 +27,6 @@ public class ScreenContainerPresenterImpl implements ScreenContainerPresenter {
 
     @Override
     public void loadCategories() {
-        List<Category> categoriesList = model.getCategoriesList();
-        view.showCategories(categoriesList);
+
     }
 }

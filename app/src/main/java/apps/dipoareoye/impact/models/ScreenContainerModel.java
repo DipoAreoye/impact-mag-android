@@ -9,5 +9,4 @@ import apps.dipoareoye.impact.entities.Category;
  */
 public interface ScreenContainerModel {
 
-    List<Category> getCategoriesList();
 }

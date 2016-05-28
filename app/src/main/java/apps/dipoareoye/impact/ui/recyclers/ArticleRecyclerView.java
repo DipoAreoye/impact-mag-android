@@ -51,7 +51,6 @@ public class ArticleRecyclerView extends RecyclerView.Adapter<ArticleRecyclerVie
         holder.time.setText(article.getArticleTimeStamp());
         if (!TextUtils.isEmpty(article.getArticleThumbnailUrl())) {
             holder.media.setVisibility(View.VISIBLE);
-            Log.e(null,article.getArticleThumbnailUrl());
             Picasso.with(holder.media.getContext()).load(article.getArticleThumbnailUrl()).into(holder.media);
         } else {
             holder.media.setVisibility(View.GONE);
@@ -81,5 +80,12 @@ public class ArticleRecyclerView extends RecyclerView.Adapter<ArticleRecyclerVie
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public void refill(List<NewsArticle> items) {
+        this.items.clear();
+        this.items.addAll(items);
+
+        notifyDataSetChanged();
     }
 }

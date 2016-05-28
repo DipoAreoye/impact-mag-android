@@ -5,6 +5,7 @@ import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -14,6 +15,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,25 +33,42 @@ import apps.dipoareoye.impact.network.ArticlesListener;
 public class NewsListModelImpl implements NewsListModel {
 
     private Context context;
-    private String url = "http://impactnottingham.com/wp-json/wp/v2/posts?filter%5Bnews%5D=lead%20articles&page=1&per_page=30";
     private JSONArray jsonArticles;
     private ArrayList<NewsArticle> articles = new ArrayList<>();
     private ArticlesListener articlesListener;
+    private String category= "";
+    private String rootUrl = "http://impactnottingham.com/wp-json/wp/v2/posts?filter[category_name]=";
+    private RequestQueue requestQueue;
 
     public NewsListModelImpl(Context context){
         this.context = context;
+        requestQueue = Volley.newRequestQueue(context);
     }
 
     @Override
-    public void getNewsList(final ArticlesListener articleListener) {
+    public void getNewsList(String category, final ArticlesListener articleListener) {
         this.articlesListener = articleListener;
 
+        try {
+            this.category = URLEncoder.encode(category,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String url = rootUrl + this.category +"&page=1&per_page=30";
+
+        requestQueue.cancelAll(this);
         JsonArrayRequest jsArrayRequest = new JsonArrayRequest
                 (com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 jsonArticles = response;
+
+                if (jsonArticles != null) {
+                    articles.clear();
+                }
                 parseArticleResponse();
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -57,7 +77,7 @@ public class NewsListModelImpl implements NewsListModel {
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        jsArrayRequest.setTag(this);
         requestQueue.add(jsArrayRequest);
     }
 
@@ -65,7 +85,8 @@ public class NewsListModelImpl implements NewsListModel {
 
         int count = articles.size();
 
-        if (count == jsonArticles.length()){
+
+        if (articles.size() == jsonArticles.length()){
             articlesListener.articlesCallback(articles);
             return;
         }
@@ -123,7 +144,9 @@ public class NewsListModelImpl implements NewsListModel {
                         new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+
                 String url = parseImageResponse(response);
+
                 newsArticle.setArticleThumbnailUrl(url);
                 articles.add(newsArticle);
                 parseArticleResponse();
@@ -135,9 +158,8 @@ public class NewsListModelImpl implements NewsListModel {
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        jsonObjectRequest.setTag(this);
         requestQueue.add(jsonObjectRequest);
-
     }
 
     private String parseImageResponse(JSONArray response){
@@ -152,12 +174,7 @@ public class NewsListModelImpl implements NewsListModel {
                     .getString(Const.MEDIA_URL_KEY);
         } catch (JSONException e) {
 
-            Log.d(this.getClass().toString(), e.toString());
-            try {
-                Log.d(this.getClass().toString(), response.getJSONObject(0).toString());
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
+            e.printStackTrace();
         }
 
         return url;

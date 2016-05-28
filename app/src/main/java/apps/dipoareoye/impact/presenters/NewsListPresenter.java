@@ -7,7 +7,8 @@ import apps.dipoareoye.impact.ui.views.NewsListView;
  */
 public interface NewsListPresenter extends Presenter {
 
-    void create();
+    void create(String category);
 
     void setView(NewsListView view);
+
 }

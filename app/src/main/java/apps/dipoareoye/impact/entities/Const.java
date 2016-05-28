@@ -19,4 +19,6 @@ public final class Const {
     public static final String MEDA_THUMBNAIL_SMALL = "vw_one_third_thumbnail";
     public static final String MEDIA_URL_KEY = "source_url";
 
+
+
 }

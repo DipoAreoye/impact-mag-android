@@ -1,22 +1,34 @@
 package apps.dipoareoye.impact.ui.activities;
 
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import apps.dipoareoye.impact.PresenterHolder;
 import apps.dipoareoye.impact.R;
+import apps.dipoareoye.impact.entities.Category;
+import apps.dipoareoye.impact.entities.Const;
 import apps.dipoareoye.impact.entities.NewsArticle;
 import apps.dipoareoye.impact.presenters.NewsListPresenter;
 import apps.dipoareoye.impact.presenters.NewsListPresenterimpl;
@@ -26,15 +38,32 @@ import butterknife.Bind;
 
 public class NewsListActivity extends ImpactActivity implements RecyclerView.
         OnItemTouchListener, NewsListView {
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @Bind(R.id.navigation_view)
+    NavigationView navigationView;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.toolbar_title)
+    TextView toolbarTitle;
+    Typeface toolbarTypeface;
+
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     private ArticleRecyclerView adapter;
     private GestureDetectorCompat gestureDetector;
     private NewsListPresenter presenter;
+    private String selectedCategory;
+    private Resources r;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        r = getResources();
+        toolbarTypeface = Typeface.createFromAsset(getAssets(), "Humanst-1.ttf");
+        toolbarTitle.setTypeface(toolbarTypeface);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.scrollToPosition(0);
@@ -47,8 +76,9 @@ public class NewsListActivity extends ImpactActivity implements RecyclerView.
         gestureDetector =
                 new GestureDetectorCompat(this, new RecyclerViewDemoOnGestureListener());
 
+        selectedCategory = r.getString(R.string.news);
         presenter = createPresenter();
-        presenter.create();
+        presenter.create(selectedCategory);
 
     }
 
@@ -64,10 +94,11 @@ public class NewsListActivity extends ImpactActivity implements RecyclerView.
         if (presenter != null) {
             presenter.setView(this);
         } else {
-            presenter = new NewsListPresenterimpl(this,getApplicationContext());
+            presenter = new NewsListPresenterimpl(this, getApplicationContext());
         }
         return presenter;
     }
+
 
     @Override
     public void onBackPressed() {
@@ -81,9 +112,36 @@ public class NewsListActivity extends ImpactActivity implements RecyclerView.
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView
+                .OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                if (menuItem.isChecked()) {
+                    drawerLayout.closeDrawers();
+                    return true;
+                }
+
+                String category = menuItem.getTitle().toString();
+
+                Log.e(null, "category: "+category);
+
+                selectedCategory = (category == null) ? selectedCategory : category;
+                presenter.create(selectedCategory);
+
+                drawerLayout.closeDrawers();
+
+                return true;
+            }
+        });
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -118,9 +176,14 @@ public class NewsListActivity extends ImpactActivity implements RecyclerView.
 
     }
 
-        @Override
+    @Override
     public void setArticles(List<NewsArticle> articles) {
-        adapter = new ArticleRecyclerView(articles);
-        recyclerView.setAdapter(adapter);
+        if (adapter == null) {
+            adapter = new ArticleRecyclerView(articles);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.refill(articles);
+        }
+
     }
 }

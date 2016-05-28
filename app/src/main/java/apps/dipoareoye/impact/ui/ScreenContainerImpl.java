@@ -37,6 +37,7 @@ public class ScreenContainerImpl implements ScreenContainer, ScreenContainerView
     ViewGroup container;
     TextView usernameView;
     private ScreenContainerPresenter presenter;
+    private String selectedCategory;
 
     @VisibleForTesting
     public ScreenContainerImpl(ScreenContainerPresenter presenter) {
@@ -68,25 +69,6 @@ public class ScreenContainerImpl implements ScreenContainer, ScreenContainerView
 
         // set correspoing item to checked
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView
-                .OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Intent intent = null;
-                menuItem.setChecked(true);
-                switch (menuItem.getItemId()) {
-                    default:
-                        // on case selected setup intent to load showArticle Activity
-                        break;
-                }
-                if (intent != null) {
-                    activity.startActivity(intent);
-                    activity.finish();
-                }
-                drawerLayout.closeDrawers();
-                return true;
-            }
-        });
     }
 
     private void initToolbar(AppCompatActivity activity) {

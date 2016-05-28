@@ -12,5 +12,5 @@ import apps.dipoareoye.impact.network.ArticlesListener;
  */
 public interface NewsListModel {
 
-    void getNewsList(ArticlesListener listener);
+    void getNewsList(String url ,ArticlesListener listener);
 }
