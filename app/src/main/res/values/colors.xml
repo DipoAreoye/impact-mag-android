@@ -7,4 +7,5 @@
     <color name="colorBackground">#f3f3f3</color>
     <color name="colorImageView">#fbfbfb</color>
     <color name="drawerBackground">#494949</color>
+    <color name="colorTimeBackground">#73000000 </color>
 </resources>

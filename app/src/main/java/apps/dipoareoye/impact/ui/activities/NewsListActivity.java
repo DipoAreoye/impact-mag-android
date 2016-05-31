@@ -206,7 +206,7 @@ public class NewsListActivity extends ImpactActivity implements RecyclerView.
             adapter = new ArticleRecyclerView(articles , toolbarTypeface);
             recyclerView.setAdapter(adapter);
         } else {
-            recyclerView.scrollTo(0, 0);
+            recyclerView.scrollToPosition(0);
             adapter.refill(articles);
         }
 
