@@ -9,5 +9,5 @@ import apps.dipoareoye.impact.entities.Category;
  */
 
 public interface ScreenContainerView {
-    void showCategories(List<Category> categoryList);
+
 }

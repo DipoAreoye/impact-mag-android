@@ -32,9 +32,9 @@ public class NewsListPresenterimpl implements NewsListPresenter {
 
     @Override
     public void create(String category) {
-        String url = Category.getCategory(category);
+
         articleList = new ArrayList<>();
-        articleModel.getNewsList(url,new ArticlesListener() {
+        articleModel.getNewsList(category,new ArticlesListener() {
             @Override
               public void articlesCallback(List<NewsArticle> articles) {
                 articleList.addAll(articles);

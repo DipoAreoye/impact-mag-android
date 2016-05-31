@@ -1,13 +1,15 @@
 package apps.dipoareoye.impact.entities;
 
-import org.json.JSONObject;
 
 /**
  * Created by dipoareoye on 10/05/2016.
  */
 public class NewsArticle {
 
+    private String articleCategory;
+
     private String articleTitle;
+    private String articleUrl;
     private String articleThumbnailUrl;
     private String articleDescription;
     private String articleTimeStamp;
@@ -27,6 +29,11 @@ public class NewsArticle {
         this.articleTitle = articleTitle;
     }
 
+    public void setArticleCategory (String articleCategory) {
+
+        this.articleCategory = articleCategory;
+    }
+
     public void setArticleThumbnailUrl(String articleThumbnailUrl) {
 
         this.articleThumbnailUrl = articleThumbnailUrl;
@@ -42,10 +49,19 @@ public class NewsArticle {
         this.articleTimeStamp = articleTimeStamp;
     }
 
+    public void setArticleUrl(String articleUrl) {
+
+        this.articleUrl = articleUrl;
+    }
 
     public String getArticleTitle() {
 
         return articleTitle;
+    }
+
+    public String getArticleCategory() {
+
+        return articleCategory;
     }
 
     public String getArticleThumbnailUrl() {
@@ -63,9 +79,9 @@ public class NewsArticle {
         return articleTimeStamp;
     }
 
-    public void create(JSONObject object) {
+    public String getArticleUrl() {
 
-
+        return articleUrl;
     }
 
 }

@@ -7,7 +7,7 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="editor_choice">Editors Choice</string>
+    <string name="editor_choice">Editor\'s Choice</string>
     <string name="news">News</string>
     <string name="features">Features</string>
     <string name="comment">Comment</string>
@@ -22,20 +22,4 @@
     <string name="sport">Sport</string>
     <string name="images">Images</string>
 
-    <string-array name="categories_array">
-        <item>Editors Choice</item>
-        <item>News</item>
-        <item>Features</item>
-        <item>Comment</item>
-        <item>Film &amp; Television</item>
-        <item>Arts</item>
-        <item>Music</item>
-        <item>Gaming</item>
-        <item>"style">Style</item>
-        <item>Travel</item>
-        <item name="food">Food</item>
-        <item>Science</item>
-        <item>Sport</item>
-        <item>Images</item>
-    </string-array>
 </resources>

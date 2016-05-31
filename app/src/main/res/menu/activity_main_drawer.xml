@@ -4,7 +4,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/leadarticles"
+            android:id="@+id/editorschoice"
             android:title="Editor's Choice"
             app:showAsAction="never"/>
         <item

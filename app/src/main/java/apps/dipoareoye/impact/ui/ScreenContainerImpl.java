@@ -31,13 +31,11 @@ public class ScreenContainerImpl implements ScreenContainer, ScreenContainerView
     DrawerLayout drawerLayout;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.navigation_view)
-    NavigationView navigationView;
     @Bind(R.id.activity_content)
     ViewGroup container;
-    TextView usernameView;
+    @Bind(R.id.navigation_view)
+    NavigationView navigationView;
     private ScreenContainerPresenter presenter;
-    private String selectedCategory;
 
     @VisibleForTesting
     public ScreenContainerImpl(ScreenContainerPresenter presenter) {
@@ -65,9 +63,7 @@ public class ScreenContainerImpl implements ScreenContainer, ScreenContainerView
 
     private void setupDrawerLayout(final AppCompatActivity activity) {
 
-        //load navigation view with categories
-
-        // set correspoing item to checked
+        navigationView.getMenu().getItem(0).setChecked(true);
 
     }
 
@@ -81,8 +77,5 @@ public class ScreenContainerImpl implements ScreenContainer, ScreenContainerView
         }
     }
 
-    @Override
-    public void showCategories(List<Category> categoryList) {
 
-    }
 }

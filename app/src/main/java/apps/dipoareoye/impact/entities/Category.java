@@ -13,7 +13,7 @@ public final class Category {
     static
     {
         categoryMap = new HashMap<>();
-        categoryMap.put("Editors Choice" , "lead articles");
+        categoryMap.put("Editor's Choice" , "lead articles");
         categoryMap.put("News" , "news");
         categoryMap.put("Features","features");
         categoryMap.put("Comment","comment");

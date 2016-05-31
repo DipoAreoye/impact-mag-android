@@ -5,7 +5,6 @@ import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,9 +19,9 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
+import apps.dipoareoye.impact.entities.Category;
 import apps.dipoareoye.impact.entities.Const;
 import apps.dipoareoye.impact.entities.NewsArticle;
 import apps.dipoareoye.impact.network.ArticlesListener;
@@ -32,36 +31,39 @@ import apps.dipoareoye.impact.network.ArticlesListener;
  */
 public class NewsListModelImpl implements NewsListModel {
 
-    private Context context;
     private JSONArray jsonArticles;
     private ArrayList<NewsArticle> articles = new ArrayList<>();
     private ArticlesListener articlesListener;
-    private String category= "";
+    private String categoryName= "";
+    private String categoryUrl= "";
     private String rootUrl = "http://impactnottingham.com/wp-json/wp/v2/posts?filter[category_name]=";
     private RequestQueue requestQueue;
 
     public NewsListModelImpl(Context context){
-        this.context = context;
         requestQueue = Volley.newRequestQueue(context);
     }
 
     @Override
     public void getNewsList(String category, final ArticlesListener articleListener) {
         this.articlesListener = articleListener;
+        int articlesCount = getPageCount(category);
+
+        categoryName = category;
 
         try {
-            this.category = URLEncoder.encode(category,"utf-8");
+            categoryUrl = URLEncoder.encode(Category.getCategory(category),"utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
-        String url = rootUrl + this.category +"&page=1&per_page=30";
+        String url = rootUrl + categoryUrl +"&page=1&per_page=" +articlesCount;
 
         requestQueue.cancelAll(this);
         JsonArrayRequest jsArrayRequest = new JsonArrayRequest
                 (com.android.volley.Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+
                 jsonArticles = response;
 
                 if (jsonArticles != null) {
@@ -72,19 +74,32 @@ public class NewsListModelImpl implements NewsListModel {
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.e(null,"could not load data");
 
             }
+
         });
 
         jsArrayRequest.setTag(this);
         requestQueue.add(jsArrayRequest);
     }
 
+    private int getPageCount(String category) {
+        if (category.equals(Category.getCategory("Editor's Choice"))) {
+
+            return 10;
+        } else if (category.equals(Category.getCategory("Style"))){
+
+            return 5;
+        }
+
+        return 15;
+    }
+
     private void parseArticleResponse() {
 
         int count = articles.size();
-
 
         if (articles.size() == jsonArticles.length()){
             articlesListener.articlesCallback(articles);
@@ -97,6 +112,12 @@ public class NewsListModelImpl implements NewsListModel {
             String title = jsonArticles.getJSONObject(count)
                     .getJSONObject(Const.ARTICLE_TITLE_KEY).getString("rendered");
             article.setArticleTitle(Html.fromHtml(title).toString());
+
+            article.setArticleCategory(categoryName);
+
+            String link = jsonArticles.getJSONObject(count)
+                    .getString(Const.ARTICLE_URL_KEY);
+            article.setArticleUrl(link);
 
             String desc = jsonArticles.getJSONObject(count)
                     .getJSONObject(Const.ARTICLE_DESC_KEY).getString("rendered");
@@ -114,8 +135,6 @@ public class NewsListModelImpl implements NewsListModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private String formatDate(String date) {
@@ -129,6 +148,7 @@ public class NewsListModelImpl implements NewsListModel {
             String relativeDate = DateUtils.getRelativeTimeSpanString(articleDate.getTime(),
                     System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS,DateUtils.FORMAT_ABBREV_RELATIVE).toString();
             return relativeDate;
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
